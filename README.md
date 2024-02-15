@@ -55,5 +55,20 @@ void namedWindow(const string& winname,int flags=WINDOW_AUTOSIZE );
 void imshow(const string& winname, InputArray mat);
 ```
 
+#### 4.效果图
+
+c++
+
+<img src="../Opencv/Images/4.png" >
+
+python
+
+<img src="../Opencv/Images/5.png" >
+
 ## 二、
 
+python
+
+<img src="../Opencv/Images/6.png" >
+
+c++
