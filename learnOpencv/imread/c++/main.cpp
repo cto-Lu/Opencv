@@ -1,10 +1,12 @@
 #include<opencv2/core/core.hpp>
 #include<opencv2/highgui/highgui.hpp>
+#include<iostream>
 
 using namespace cv;
 
 int main()
 {
+    
     Mat image0 = imread("/home/stoair/Opencv/Images/1.png", 4);
     namedWindow("test",WINDOW_NORMAL);
     namedWindow("change1", WINDOW_NORMAL);
