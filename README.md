@@ -401,16 +401,61 @@ ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.32 libstdc++.so
 ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.32 libstdc++.so.6
 ```
 
-### (3).Ganny边缘检测
-
-#### 1.图像平滑
+### (3).平滑处理
 
 图像的平滑处理是在尽量图像原有信息的情况下，过滤掉图像内部的噪声。由于图像平滑处理的同时通常伴随着图像的模糊操作，有时图像平滑处理也称为图像模糊处理。使用滤波器模板确定的邻域内像素的平均/加权平均灰度值代替图像中每个像素的值。平滑线处理滤波器也称**均值滤波器**
 
-- 均值滤波 dst = cv2.blur(src, ksize, anchor, borderType)
-- 方框滤波 dst = cv2.boxFilter(src, ddepth, ksize, anchor, normalize, borderType)
-- 高斯滤波 dst = cv2.GauusianBlur(src, ksize, sigmaX, sigmaY, borderType)
-- 中值滤波 dst = cv2.medianBlur(src, ksize)
+#### 1.均值滤波 
+
+```python
+dst = cv2.blur(src, ksize, anchor, borderType)
+```
+
+#### 2.方框滤波 
+
+```python
+dst = cv2.boxFilter(src, ddepth, ksize, anchor, normalize, borderType)
+```
+
+#### 3.高斯滤波 
+
+```python
+dst = cv2.GauusianBlur(src, ksize, sigmaX, sigmaY, borderType)
+```
+
+#### 4.中值滤波 
+
+```python
+dst = cv2.medianBlur(src, ksize)
+```
+
+#### 5.双边滤波
+
+边缘滤波保留是一种图像处理技术，旨在在应用滤波器时保留图像中的边缘信息。在图像处理中，滤波器通常用于平滑图像或者增强特定的图像特征，但是滤波器也可能导致边缘信息的模糊或丢失。通过在滤波过程中保留边缘信息，从而在平滑图像的同时保持图像中的边缘清晰度
+
+```c++
+dst = cv2.bilateralFilter(src, d, sigmaColor, sigmaSpace, dst, borderType)
+```
+
+- d：过滤过程中每个像素邻域的直径范围。如果不是正数，则函数会从参数 sigmaSpace 计算该值；
+
+- sigmaColor：颜色空间过滤器的 sigma 值，参数的值越大，表明该像素邻域内有越宽广的颜色会被混合到一起，产生较大的半等色区域；
+
+- sigmaSpace：坐标空间中滤波器的 sigma 值，如果该值较大，则意味着越远的像素将相互影响，从而使更大的区域中足够相似的颜色获取相同的颜色。当 d>0 时，d 指定了邻域大小且与 sigmaSpace 无关，否则 d 正比于 sigmaSpace。
+
+一般将 sigmaSpace设置大一些，sigmaColor 设置小一些，最终呈现的效果较好。
+
+c++
+
+![image-20240301001618458](./Images/47.png)
+
+python
+
+![image-20240301002015836](./Images/48.png)
+
+### (4).Ganny边缘检测
+
+#### 1.图像平滑
 
 #### 2.图像梯度
 
@@ -465,7 +510,7 @@ C++
 
 ![image-20240225035314189](./Images/31.png)
 
-### (3).霍夫变换
+### (5).霍夫变换
 
 最基本的霍夫变换是从黑白图像中检测直线(线段)
 
@@ -683,5 +728,43 @@ void on_Mouse(int event, int x, int y, int flags, void* param);
   //  flags是CV_EVENT_FLAG的组合， param是用户定义的传递到setMouseCallback函数调用的参数。
 ```
 
+**event 具体说明如下：**
 
+- EVENT_MOUSEMOVE 0 //滑动
 
+- EVENT_LBUTTONDOWN 1 //左键点击
+
+- EVENT_RBUTTONDOWN 2 //右键点击
+
+- EVENT_MBUTTONDOWN 3 //中键点击
+
+- EVENT_LBUTTONUP 4 //左键放开
+
+- EVENT_RBUTTONUP 5 //右键放开
+
+- EVENT_MBUTTONUP 6 //中键放开
+
+- EVENT_LBUTTONDBLCLK 7 //左键双击
+
+- EVENT_RBUTTONDBLCLK 8 //右键双击
+
+- EVENT_MBUTTONDBLCLK 9 //中键双击
+
+**flags 具体说明如下：**
+
+- EVENT_FLAG_LBUTTON 1 //左键拖曳
+- EVENT_FLAG_RBUTTON 2 //右键拖曳
+- EVENT_FLAG_MBUTTON 4 //中键拖曳
+- EVENT_FLAG_CTRLKEY 8 //(8~15)按 Ctrl 不放
+
+- EVENT_FLAG_SHIFTKEY 16 //(16~31)按 Shift 不放
+
+- EVENT_FLAG_ALTKEY 32 //(32~39)按 Alt 不放
+
+python
+
+![image-20240229201512542](./Images/45.png)
+
+c++
+
+![image-20240229203038654](./Images/46.png)

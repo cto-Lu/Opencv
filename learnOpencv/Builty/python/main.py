@@ -1,15 +1,10 @@
 import cv2 as cv
-
-image = cv.imread('../c++/41.jpg')
-thresh = 127
-maxVal = 255
-def updateThreshold(X):
-    thresh = cv.getTrackbarPos('Threshold Value', 'image')
-    maxVal = cv.getTrackbarPos('Max Value', 'image')
-    _, change = cv.threshold(image, thresh, maxVal, cv.THRESH_BINARY)
-    cv.imshow('image', change)
-
-cv.namedWindow('image', cv.WINDOW_AUTOSIZE)
-cv.createTrackbar('Threshold Value', 'image', thresh, 255, updateThreshold)
-cv.createTrackbar('Max Value', 'image', maxVal, 255, updateThreshold)
+image = cv.imread('../python/41.jpg')
+image2 = cv.imread('../python/40.jpg')
+cv.imshow('Original', image)
+cv.imshow('Original2', image2)
+pic1 = cv.bilateralFilter(image, 15, 100, 5)
+pic2 = cv.bilateralFilter(image2, 15, 100,5)
+cv.imshow('Bilateral', pic1)
+cv.imshow('Bilateral2', pic2)
 cv.waitKey(0)
