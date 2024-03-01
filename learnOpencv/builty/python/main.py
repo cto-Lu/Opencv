@@ -1,0 +1,10 @@
+import cv2 as cv
+image = cv.imread('../python/41.jpg')
+image2 = cv.imread('../python/40.jpg')
+cv.imshow('Original', image)
+cv.imshow('Original2', image2)
+pic1 = cv.bilateralFilter(image, 15, 100, 5)
+pic2 = cv.bilateralFilter(image2, 15, 100,5)
+cv.imshow('Bilateral', pic1)
+cv.imshow('Bilateral2', pic2)
+cv.waitKey(0)
